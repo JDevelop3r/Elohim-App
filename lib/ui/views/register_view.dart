@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/providers/auth_provider.dart';
 import 'package:admin_dashboard/providers/register_form_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ import 'package:provider/provider.dart';
 class RegisterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
+    
     return ChangeNotifierProvider(
       create: (_) => RegisterFormProvider(),
       child: Builder(builder: (context) {
@@ -37,7 +40,7 @@ class RegisterView extends StatelessWidget {
                             return 'El nombre es obligatario';
                           return null;
                         },
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                         decoration: CustomInputs.loginInputDecoration(
                             hint: 'Ingrese su nombre',
                             label: 'Nombre',
@@ -87,7 +90,10 @@ class RegisterView extends StatelessWidget {
                       SizedBox(height: 20),
                       CustomOutlinedButton(
                         onPressed: () {
-                          registerFormProvider.validateForm();
+                          final isValid = registerFormProvider.validateForm();
+                          if (isValid)
+                              authProvider.signUp(registerFormProvider.name, registerFormProvider.email,
+                                  registerFormProvider.password);
                         },
                         text: 'Crear cuenta',
                       ),

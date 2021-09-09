@@ -35,18 +35,21 @@ class Sidebar extends StatelessWidget {
           TextSeparator(text: 'Paciente'),
           MenuItem(
             text: 'Registro',
-            icon: Icons.app_registration_sharp,
+            icon: Icons.app_registration,
             onPressed: () => navigateTo(Flurorouter.registerPacientRoute),
             isActive: sideMenuProvider.currentPage ==
                 Flurorouter.registerPacientRoute,
           ),
           MenuItem(
-              text: 'Historico', icon: Icons.history_edu, onPressed: () {}),
+              text: 'Historico',
+              icon: Icons.history_edu,
+              onPressed: () => navigateTo(Flurorouter.historicoPacienteRoute),
+            isActive: sideMenuProvider.currentPage == Flurorouter.historicoPacienteRoute,),
           SizedBox(height: 16),
           TextSeparator(text: 'Médicos'),
           MenuItem(
             text: 'Registro',
-            icon: Icons.app_registration_sharp,
+            icon: Icons.app_registration,
             onPressed: () => navigateTo(Flurorouter.registerMedicoRoute),
             isActive:
                 sideMenuProvider.currentPage == Flurorouter.registerMedicoRoute,
@@ -54,23 +57,28 @@ class Sidebar extends StatelessWidget {
           MenuItem(
               text: 'Historico',
               icon: Icons.note_add_outlined,
-              onPressed: () {}),
+              onPressed: () => navigateTo(Flurorouter.historicoMedicoRoute),
+            isActive: sideMenuProvider.currentPage == Flurorouter.historicoMedicoRoute,),
           SizedBox(height: 16),
           TextSeparator(text: 'Reportes'),
           MenuItem(
-            text: 'Registro\nDiarios',
-            icon: Icons.domain_verification_rounded,
-            onPressed: () => navigateTo(Flurorouter.iconsRoute),
-            isActive: sideMenuProvider.currentPage == Flurorouter.iconsRoute,
+            text: 'Notas',
+            icon: Icons.note,
+            onPressed: () => navigateTo(Flurorouter.notasRoute),
+            isActive: sideMenuProvider.currentPage == Flurorouter.notasRoute
           ),
           MenuItem(
-              text: 'Recibo de \nIngresos y\nTransferencia',
-              icon: Icons.receipt_long_outlined,
-              onPressed: () {}),
+            text: 'Comisiones',
+            icon: Icons.monetization_on,
+            onPressed: () => navigateTo(Flurorouter.comisionesRoute),
+            isActive: sideMenuProvider.currentPage == Flurorouter.comisionesRoute,
+          ),
           MenuItem(
-              text: 'Comprobante\nde Pago\nImpuesto',
-              icon: Icons.playlist_add_check_outlined,
-              onPressed: () {}),
+            text: 'Registros\nDiarios',
+            icon: Icons.domain_verification_rounded,
+            onPressed: () => navigateTo(Flurorouter.reporteDiarioRoute),
+            isActive: sideMenuProvider.currentPage == Flurorouter.reporteDiarioRoute,
+          ),
           SizedBox(height: 16),
           TextSeparator(text: 'Salida'),
           MenuItem(

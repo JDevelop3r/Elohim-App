@@ -9,7 +9,7 @@ class Logo extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.medication, color: Color(0xff7A6BF5)),
+          Icon(Icons.medical_services, color: Color(0xff7A6BF5)),
           SizedBox(width: 10),
           Text(
             'Elohim',
