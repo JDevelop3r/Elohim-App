@@ -308,7 +308,7 @@ class _DashboardViewState extends State<DashboardView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Especialidad Médica'),
+                        Text('Especialidad'),
                         DropdownButton<String>(
                             value: especialidad,
                             onChanged: (value) =>
@@ -391,10 +391,6 @@ class _DashboardViewState extends State<DashboardView> {
                               suffix: Icon(Icons.edit_location_sharp)),
                           onChanged: (value) {
                             consulta.observaciones = value.trim();
-                          },
-                          validator: (value) {
-                            if (value?.trim() == '' || value == null)
-                              return 'Requerido';
                           },
                         ),
                       ],

@@ -26,6 +26,7 @@ class _ReporteDiarioState extends State<ReporteDiario> {
   bool aplicarPagoMovil = false;
   bool aplicarDesechosBiologicos = false;
   bool aplicarGastosAdministrativos = false;
+  bool aplicarMantenimientoPunto = false;
   bool aplicarDecretoISLR = true;
 
   DateTime firstDate = DateTime.now().subtract(Duration(days: 7));
@@ -89,7 +90,8 @@ class _ReporteDiarioState extends State<ReporteDiario> {
         comisionDesechosBiologicos: aplicarDesechosBiologicos,
         comisionTransferencia: aplicarTransferencia,
         comisionPagoMovil: aplicarPagoMovil,
-        comisionGastosAdministrativos: aplicarGastosAdministrativos);
+        comisionGastosAdministrativos: aplicarGastosAdministrativos,
+        comisionMantenimientoPunto: aplicarMantenimientoPunto);
     return Container(
       child: ListView(
         physics: ClampingScrollPhysics(),
@@ -205,6 +207,21 @@ class _ReporteDiarioState extends State<ReporteDiario> {
                       ],
                     ),
                   ),
+                  Container(
+                    width: 285,
+                    child: Row(
+                      children: [
+                        Text(
+                          'Aplicar Mantenimiento del Punto',
+                          style: CustomLabels.h5,
+                        ),
+                        Checkbox(
+                            value: aplicarMantenimientoPunto,
+                            onChanged: (value) => setState(() =>
+                                aplicarDesechosBiologicos = value ?? false)),
+                      ],
+                    ),
+                  ),
                 ],
               ),
               SizedBox(
@@ -225,7 +242,8 @@ class _ReporteDiarioState extends State<ReporteDiario> {
                         DataColumn(label: Text(entrie.value))
                     ],
                     DataColumn(label: Text('Total \$')),
-                    DataColumn(label: Text('Total Bs')),
+                    DataColumn(label: Text('Total BsD')),
+                    DataColumn(label: Text('Total BsF')),
                     DataColumn(label: Text('Comisión Platco')),
                     if (aplicarTransferencia)
                       DataColumn(label: Text('Comisión Transferencia')),
@@ -235,9 +253,12 @@ class _ReporteDiarioState extends State<ReporteDiario> {
                       DataColumn(label: Text('Desechos Biológicos')),
                     if (aplicarGastosAdministrativos)
                       DataColumn(label: Text('Gastos Administrativos')),
+                    if (aplicarMantenimientoPunto)
+                      DataColumn(label: Text('Mantenimiento Punto de Venta')),
                     if (aplicarDecretoISLR)
                       DataColumn(label: Text('Decreto ISLR')),
-                    DataColumn(label: Text('Total a pagar Bs')),
+                    DataColumn(label: Text('Total a pagar BsD')),
+                    DataColumn(label: Text('Total a pagar BsF')),
                     DataColumn(label: Text('Exportar')),
                   ],
                 ),

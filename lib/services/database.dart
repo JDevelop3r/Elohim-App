@@ -11,8 +11,7 @@ import 'package:http/http.dart' as http;
 import 'notifications_service.dart';
 
 const BASE_URL =
-    "https://api-elohim.herokuapp.com" /* "http://localhost:3000" */;
-
+    /* "https://api-elohim.herokuapp.com" */ "http://localhost:3000";
 class DatabaseService {
   registrarPaciente(Pacient paciente) async {
     var url = Uri.parse("$BASE_URL/pacient");
@@ -27,11 +26,8 @@ class DatabaseService {
 
     var resBody = jsonDecode(response.body);
     print(resBody);
-    if (resBody['_id'] == null) {
-      NotificationsService.showSnackbarError('Error. Revise los datos');
-      return false;
-    }
-    NotificationsService.showSnackbar('Paciente creado.');
+    NotificationsService.showSnackbarInfo(resBody['message']);
+    if (resBody['error']) return false;
     return true;
   }
 
@@ -53,11 +49,8 @@ class DatabaseService {
 
     var resBody = jsonDecode(response.body);
     print(resBody);
-    if (resBody['_id'] == null) {
-      NotificationsService.showSnackbarError('Error. Revise los datos');
-      return false;
-    }
-    NotificationsService.showSnackbar('Profesional creado.');
+    NotificationsService.showSnackbarInfo(resBody['message']);
+    if (resBody['error']) return false;
     return true;
   }
 

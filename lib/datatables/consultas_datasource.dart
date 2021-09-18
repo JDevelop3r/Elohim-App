@@ -26,12 +26,14 @@ class ConsultasDataSource extends DataTableSource {
   final bool comisionGastosAdministrativos;
   final bool comisionDesechosBiologicos;
   final bool comisionDecretoISLR;
+  final bool comisionMantenimientoPunto;
 
   ConsultasDataSource(this.consultas, this.doctorsIds, this.comisiones,
       {this.comisionTransferencia = false,
       this.comisionPagoMovil = false,
       this.comisionGastosAdministrativos = false,
       this.comisionDesechosBiologicos = false,
+      this.comisionMantenimientoPunto = false,
       this.comisionDecretoISLR = true});
 
   List<DataCell> tableRow(String id) {
@@ -125,6 +127,13 @@ class ConsultasDataSource extends DataTableSource {
           .firstWhere((element) => element.nombre == 'gastos_administrativos')
           .valor;
     }
+
+    if (comisionMantenimientoPunto) {
+      totalPagar -= comisiones
+          .firstWhere((element) => element.nombre == 'mantenimiento_punto')
+          .valor;
+    }
+
     pagos.addAll({
       'debito': debito,
       'efectivo\$': efectivo$,
@@ -163,6 +172,11 @@ class ConsultasDataSource extends DataTableSource {
               .firstWhere((element) => element.nombre == 'desechos_biologicos')
               .valor
           : 0,
+      'mantenimiento_punto': comisionMantenimientoPunto
+          ? comisiones
+              .firstWhere((element) => element.nombre == 'mantenimiento_punto')
+              .valor
+          : 0,
       'decreto_islr': comisionDecretoISLR
           ? pagoBss *
               comisiones
@@ -183,6 +197,7 @@ class ConsultasDataSource extends DataTableSource {
       tableCell(formatNumber(f.format(otro))),
       tableCell(formatNumber(f.format(pago$))),
       tableCell(formatNumber(f.format(pagoBss))),
+      tableCell(formatNumber(f.format(pagoBss * 1000000))),
       tableCell(formatNumber(f.format(debito *
           (doctor.ganancia / 100) *
           comisiones
@@ -206,11 +221,16 @@ class ConsultasDataSource extends DataTableSource {
         tableCell(formatNumber(f.format(comisiones
             .firstWhere((element) => element.nombre == 'gastos_administrativos')
             .valor))),
+      if (comisionMantenimientoPunto)
+        tableCell(formatNumber(f.format(comisiones
+            .firstWhere((element) => element.nombre == 'mantenimiento_punto')
+            .valor))),
       tableCell(formatNumber(f.format(pagoBss *
           comisiones
               .firstWhere((element) => element.nombre == 'decreto_islr')
               .valor))),
       tableCell(formatNumber(f.format(totalPagar))),
+      tableCell(formatNumber(f.format(totalPagar * 1000000))),
       DataCell(Row(
         children: [
           IconButton(

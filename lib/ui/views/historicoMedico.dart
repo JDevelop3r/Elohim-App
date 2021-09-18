@@ -19,7 +19,7 @@ class _HistoricoMedicoState extends State<HistoricoMedico> {
   TextEditingController cedController = TextEditingController();
 
   List<Consulta> consultas = [];
-
+  final f = NumberFormat("#,##0.0#");
   DateTime firstDate = DateTime.now().subtract(Duration(days: 7));
   DateTime lastDate = DateTime.now();
 
@@ -72,6 +72,16 @@ class _HistoricoMedicoState extends State<HistoricoMedico> {
     });
   }
 
+  String formatNumber(String number) {
+    var replaceComa = false;
+    if (number.contains('.')) replaceComa = true;
+    number = number.replaceAll(',', '.');
+    if (replaceComa)
+      number = number.replaceRange(
+          number.lastIndexOf('.'), number.lastIndexOf('.') + 1, ',');
+    return number;
+  }
+
   tableRow(Consulta consulta) {
     dynamic pago$ = 0;
     dynamic pagoBss = 0;
@@ -82,13 +92,13 @@ class _HistoricoMedicoState extends State<HistoricoMedico> {
         pagoBss += e['monto'];
     });
     return TableRow(children: [
-      tableCell(consulta.doctor.ced.toString()),
-      tableCell(consulta.paciente.ced.toString()),
+      tableCell(formatNumber(f.format(consulta.doctor.ced))),
+      tableCell(formatNumber(f.format(consulta.paciente.ced))),
       tableCell(ESPECIALIDADES[consulta.area] ?? 'Sin definir'),
       tableCell(consulta.trabajo),
       tableCell(consulta.observaciones),
-      tableCell(pago$.toString()),
-      tableCell(pagoBss.toString()),
+      tableCell(formatNumber(f.format(pago$))),
+      tableCell(formatNumber(f.format(pagoBss))),
     ]);
   }
 

@@ -108,14 +108,11 @@ class _RegisterMedicoState extends State<RegisterMedico> {
                         TextFormField(
                           style: TextStyle(color: Colors.black),
                           onChanged: (value) {
-                            doctor.rif = int.parse(value.trim());
+                            doctor.rif = value.trim();
                           },
                           validator: (value) {
                             if (value == null) return 'Requerido';
                             if (value.trim() == '') return 'Requerido';
-                            var regExp = RegExp(r"^[0-9]+$");
-                            if (!regExp.hasMatch(value))
-                              return 'Solo números';
                           },
                         ),
                       ],

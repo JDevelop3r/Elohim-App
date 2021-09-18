@@ -73,7 +73,7 @@ Future generarPDFPago(Doctor doctor, List<Consulta> consultasDoc,
                   '${doctor.firstName} ${doctor.lastName}',
                 ],
                 <String>[
-                  'ESPECIALIDAD MÉDICA',
+                  'ESPECIALIDAD',
                   '${doctor.especialidadToString()}',
                 ],
                 <String>[
@@ -113,9 +113,10 @@ Future generarPDFPago(Doctor doctor, List<Consulta> consultasDoc,
                 <String>[
                   'COMISIÓN\nPLATCO',
                   'COMISIÓN POR\nTRANSF.',
-                  'COMISIÓN POR \nMOVIL',
+                  'COMISIÓN POR \NPAGO MOVIL',
                   'CUOTA\nDESECHOS\nBIOLÓGICOS',
                   'GASTOS\nADMTVOS.',
+                  'MANTENIMIENTO\nPUNTO. DE VENTA.',
                   'DECRETO I.S.L.R.'
                 ],
                 <dynamic>[
@@ -124,6 +125,7 @@ Future generarPDFPago(Doctor doctor, List<Consulta> consultasDoc,
                   formatNumber(f.format(pagos['comision_pago_movil'])),
                   formatNumber(f.format(pagos['desechos_biologicos'])),
                   formatNumber(f.format(pagos['gastos_administrativos'])),
+                  formatNumber(f.format(pagos['mantenimiento_punto'])),
                   formatNumber(f.format(pagos['decreto_islr'])),
                 ],
               ]),
